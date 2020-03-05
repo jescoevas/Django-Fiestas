@@ -11,3 +11,6 @@ class Building(models.Model):
     conditions = models.CharField(max_length=256,blank=False)
     decision = models.CharField(max_length=10,default='PENDING', choices=decisions)
     owner = models.ForeignKey(Owner, null=False, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.address} - {self.capacity}'

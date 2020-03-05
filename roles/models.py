@@ -8,6 +8,9 @@ class Administrator(models.Model):
     email = models.EmailField(blank=False)
     phone = models.CharField(max_length=14)
 
+    def __str__(self):
+        return self.name
+
 
 class Owner(models.Model):
     name = models.CharField(max_length=20, blank=False)
@@ -15,8 +18,14 @@ class Owner(models.Model):
     email = models.EmailField(blank=False)
     phone = models.CharField(max_length=14)
 
+    def __str__(self):
+        return self.name
+
 class Customer(models.Model):
     name = models.CharField(max_length=20, blank=False)
     surname = models.CharField(max_length=20, blank=False)
     email = models.EmailField(blank=False)
     phone = models.CharField(max_length=14)
+
+    def __str__(self):
+        return self.name

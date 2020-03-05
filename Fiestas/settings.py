@@ -57,7 +57,7 @@ ROOT_URLCONF = 'Fiestas.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['Fiestas/templates',],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

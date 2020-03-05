@@ -12,6 +12,9 @@ class Request(models.Model):
     building = models.ForeignKey(Building, null=False, on_delete=models.CASCADE)
     customer = models.ForeignKey(Customer, null=False, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f'{self.building.address} - {self.customer.name} ({self.decision})'
+
 class Party(models.Model):
     description = models.CharField(max_length=256,blank=False)
     price = models.PositiveIntegerField(null=False)
@@ -20,3 +23,6 @@ class Party(models.Model):
     numberOfAttendees = models.PositiveIntegerField(null=False)
     description = models.CharField(max_length=256,blank=False)
     request = models.ForeignKey(Request, null=False, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.request.building.address} - {self.price} - ({self.startDate} - {self.endDate})'

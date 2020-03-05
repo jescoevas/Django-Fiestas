@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('capacity', models.PositiveIntegerField()),
                 ('conditions', models.CharField(max_length=256)),
                 ('decision', models.CharField(choices=[('P', 'PENDING'), ('A', 'ACCEPTED'), ('R', 'REJECTED')], default='PENDING', max_length=10)),
-                ('customer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='roles.Customer')),
+                ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='roles.Owner')),
             ],
         ),
     ]
