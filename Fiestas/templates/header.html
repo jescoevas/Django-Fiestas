@@ -24,17 +24,31 @@
                 <li class="nav-item {% if nav == 'index' %}active{% endif %}">
                     <a class="nav-link" href="/index">Home</a>
                 </li>
-                <li class="nav-item {% if nav == 'buildings' %}active{% endif %}">
-                    <a class="nav-link" href="/buildings">Buildings</a>
+                <li class="nav-item dropdown">
+                    <span class="nav-link dropdown-toggle" style="cursor: pointer;" data-toggle="dropdown">
+                    Search
+                    </span>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/search_buildings">Search buildings</a>
+                        <a class="dropdown-item" href="/search_parties">Search parties</a>
+                    </div>
                 </li>
             </ul>
         </div>
         <div>
+
+            {% if userId %}
+
+            <button class="btn btn-outline-primary" onclick="window.location.replace('/logout')">
+                    Log out
+                </button> {% else %}
+
             <button class="btn btn-outline-primary" onclick="window.location.replace('/signup')">
-                Sign up
-            </button>
+                    Sign up
+                </button>
             <button class="btn btn-outline-primary" onclick="window.location.replace('/login')">
-                Log in
-            </button>
+                    Log in
+                </button> {% endif %}
+
         </div>
     </nav>

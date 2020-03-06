@@ -50,7 +50,9 @@ def login(request):
     try:
         owner = Owner.objects.get(email=email)
         if owner.password == password:
-            return redirect('/index')
+            response = redirect('/index')
+            response.set_cookie('id', owner.id)
+            return response
         else:
             context['password_is_not_correct'] = 'Password is not correct'
             return render(request,template,context)
@@ -58,10 +60,17 @@ def login(request):
         try:
             customer = Customer.objects.get(email=email)
             if customer.password == password:
-                return redirect('/index')
+                response = redirect('/index')
+                response.set_cookie('id', customer.id)
+                return response
             else:
                 context['password_is_not_correct'] = 'Password is not correct'
                 return render(request,template,context)
         except:
             context['user_does_not_exist'] = 'User does not exist'
             return render(request,template,context)
+
+def logout(request):
+    response = redirect('/index')
+    response.delete_cookie('id')
+    return response

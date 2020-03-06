@@ -16,6 +16,7 @@ class Request(models.Model):
         return f'{self.building.address} - {self.customer.name} ({self.decision})'
 
 class Party(models.Model):
+    name = models.CharField(max_length=20, default='')
     description = models.CharField(max_length=256,blank=False)
     price = models.PositiveIntegerField(null=False)
     startDate = models.DateTimeField()
