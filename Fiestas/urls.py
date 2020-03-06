@@ -17,11 +17,13 @@ from django.contrib import admin
 from django.urls import path
 from . import views
 from building.views import buildings
+from roles.views import signup, login
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path('index/', views.index, name='index'),
     path('buildings/',buildings),
-
+    path('signup/',signup),
+    path('login/',login)
 ]

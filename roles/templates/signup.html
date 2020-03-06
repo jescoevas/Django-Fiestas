@@ -1,0 +1,96 @@
+{% extends 'base.html' %} {% block content %}
+<div class='log-form-container animated fadeIn fast'>
+    <form method="POST" id='form'>
+        {% csrf_token %}
+        <h2 align='center' class="mb-3">Sign up</h2>
+        <div class="form-group">
+            <small id='nameblank' style="color: #AC2840">Name must not be blank</small>
+            <input type='text' name='name' id='name' autocomplete='off' placeholder='Name' class='form-control search' />
+        </div>
+        <div class="form-group">
+            <small id='surnameblank' style="color: #AC2840">Surname must not be blank</small>
+            <input type='text' name='surname' id='surname' autocomplete='off' placeholder='Surname' class='form-control search' />
+        </div>
+        <div class="form-group">
+            <small id='emailblank' style="color: #AC2840">Email must not be blank</small>
+            <input type='text' name='email' id='email' autocomplete='off' placeholder='Email' class='form-control search' />
+        </div>
+        <div class="form-group">
+            <small id='phoneblank' style="color: #AC2840">Phone must not be blank</small>
+            <input type='text' name='phone' id='phone' autocomplete='off' placeholder='Phone' class='form-control search' />
+        </div>
+        <div class="form-group">
+            <small id='passwordblank' style="color: #AC2840">Password must not be blank</small>
+            <input type='password' name='password' id='password' autocomplete='off' placeholder='Password' class='form-control search' />
+        </div>
+        <div class="form-group">
+            <small id='passworddontmatch' style="color: #AC2840">Passwords must match</small>
+            <input type='password' name='password2' id='password2' autocomplete='off' placeholder='Confirm password' class='form-control search' />
+        </div>
+        <input type="submit" class='btn btn-outline-success w-50 log-form-button' value='Sign up' />
+    </form>
+</div>
+
+<script>
+    $(document).ready(() => {
+        $('#nameblank').hide()
+        $('#surnameblank').hide()
+        $('#emailblank').hide()
+        $('#phoneblank').hide()
+        $('#passwordblank').hide()
+        $('#passworddontmatch').hide()
+    })
+
+    $('#form').submit(() => {
+        let name = $('#name').val()
+        let surname = $('#surname').val()
+        let email = $('#email').val()
+        let phone = $('#phone').val()
+        let password = $('#password').val()
+        let password2 = $('#password2').val()
+        return form_is_valid(name, surname, phone, email, password, password2)
+    })
+
+    form_is_valid = (name, surname, phone, email, password, password2) => {
+        let res = true
+        if (name === '') {
+            $("#nameblank").show()
+            res = false
+        } else {
+            $('#nameblank').hide()
+        }
+        if (surname === '') {
+            $("#surnameblank").show()
+            res = false
+        } else {
+            $('#surnameblank').hide()
+        }
+        if (email === '') {
+            $("#emailblank").show()
+            res = false
+        } else {
+            $('#emailblank').hide()
+        }
+        if (phone === '') {
+            $("#phoneblank").show()
+            res = false
+        } else {
+            $('#phoneblank').hide()
+        }
+        if (password === '') {
+            $("#passwordblank").show()
+            res = false
+        } else {
+            $('#passwordblank').hide()
+        }
+        if (password !== password2) {
+            $("#passworddontmatch").show()
+            res = false
+        } else {
+            $('#passworddontmatch').hide()
+        }
+        return res
+    }
+</script>
+
+{% endblock content %}

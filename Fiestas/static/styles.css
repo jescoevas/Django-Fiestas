@@ -1,4 +1,77 @@
 @charset "UTF-8";
+.jail {
+    border-style: solid;
+    border-color: #AC2840;
+}
+
+.container {
+    background-color: black;
+}
+
+.card {
+    color: #AC2840;
+    background-color: #343A40;
+    border-color: #AC2840;
+}
+
+.index-img {
+    height: 200px;
+    width: 100%;
+}
+
+h2,
+.card small {
+    color: #AC2840;
+}
+
+.navbar-dark {
+    color: #AC2840;
+}
+
+span {
+    color: #343A40;
+}
+
+hr {
+    background-color: #AC2840;
+}
+
+.btn:hover,
+.btn:active {
+    background-color: #AC2840;
+    border-color: #AC2840;
+    color: #343A40;
+    font-weight: bold;
+}
+
+.btn {
+    border-color: #AC2840;
+    color: #AC2840;
+    font-weight: bold;
+}
+
+a {
+    text-decoration: none;
+}
+
+.log-form-button {
+    margin: 4px 25%;
+}
+
+.log-form-container {
+    width: 50%;
+    margin: 50px auto;
+}
+
+.search,
+.search:focus {
+    background-color: #343A40;
+    color: #AC2840;
+    border-color: #AC2840;
+    text-decoration: none;
+    text-align: center;
+}
+
 
 /*!
  * animate.css -https://daneden.github.io/animate.css/

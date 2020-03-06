@@ -22,6 +22,7 @@ class Party(models.Model):
     endDate = models.DateTimeField()
     numberOfAttendees = models.PositiveIntegerField(null=False)
     description = models.CharField(max_length=256,blank=False)
+    picture = models.URLField(default='')
     request = models.ForeignKey(Request, null=False, on_delete=models.CASCADE)
 
     def __str__(self):

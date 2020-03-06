@@ -1,4 +1,49 @@
 {% extends 'base.html' %} {% block content %}
-<h1>Index</h1>
+<h2 class="mt-4">Buildings</h2>
+<hr>
+
+<div class="card-columns animated fadeIn faster">
+
+
+    {% for building in buildings %}
+
+    <div class="card mb-3">
+        <img src="{{ building.picture }}" class="card-img-top" alt="{{ building.address }}">
+        <div class="card-body">
+            <h5 class="card-title">{{building.address}} (Capacity: {{building.capacity}})</h5>
+            <p class="card-text">{{building.conditions}}</p>
+            <p class="card-text"><small>{{building.owner.name}} {{building.owner.surname}}</small></p>
+            <button class="btn btn-outline-primary btn-block">See details</button>
+        </div>
+    </div>
+
+    {% endfor %}
+
+
+</div>
+
+<h2 class="mt-4">Parties</h2>
+<hr>
+
+<div class="card-columns animated fadeIn faster">
+
+
+    {% for party in parties %}
+
+    <div class="card mb-3">
+        <img src="{{ party.picture }}" class="card-img-top" alt="{{ party.request.building.address }}">
+        <div class="card-body">
+            <h5 class="card-title">{{party.request.building.address}} (Price: {{party.price}})</h5>
+            <p class="card-text">{{party.description}}</p>
+            <p class="card-text">{{party.startDate}} / {{party.endDate}}</p>
+            <p class="card-text"><small>{{party.request.customer.name}} {{party.request.customer.surname}}</small></p>
+            <button class="btn btn-outline-primary btn-block">See details</button>
+        </div>
+    </div>
+
+    {% endfor %}
+
+
+</div>
 
 {% endblock content %}
