@@ -5,9 +5,13 @@
         {% csrf_token %}
         <h2 align='center' class="mb-3">Log in</h2>
         <div class="form-group">
-            <input type='text' name='email' autocomplete='off' placeholder='Email' class='form-control search' />
+            {% if user_does_not_exist %}
+            <small style="color: #AC2840">{{user_does_not_exist}}</small> {% endif %}
+            <input type='text' name='email' autocomplete='off' placeholder='Email' class='form-control search' {% if email_exists %} value={{email_exists}} {% endif %} />
         </div>
         <div class="form-group">
+            {% if password_is_not_correct %}
+            <small style="color: #AC2840">{{password_is_not_correct}}</small> {% endif %}
             <input type='password' name='password' autocomplete='off' placeholder='Password' class='form-control search' />
         </div>
         <input type="submit" class='btn btn-outline-success w-50 log-form-button' value='Log in' />

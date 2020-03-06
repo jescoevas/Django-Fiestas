@@ -20,6 +20,15 @@
             <input type='text' name='phone' id='phone' autocomplete='off' placeholder='Phone' class='form-control search' />
         </div>
         <div class="form-group">
+            <small id='roleblank' style="color: #AC2840">You must select a role</small>
+            <select name='role' id='role' class="form-control search">
+                <option></option>
+                <option value='owner'>Owner</option>
+                <option value='customer'>Customer</option>
+            </select>
+        </div>
+
+        <div class="form-group">
             <small id='passwordblank' style="color: #AC2840">Password must not be blank</small>
             <input type='password' name='password' id='password' autocomplete='off' placeholder='Password' class='form-control search' />
         </div>
@@ -29,6 +38,13 @@
         </div>
         <input type="submit" class='btn btn-outline-success w-50 log-form-button' value='Sign up' />
     </form>
+
+    {% if messages %} {% for message in messages %}
+    <div class="alert alert-danger" role="alert">
+        <div class="text-center">{{message}}</div>
+    </div>
+    {% endfor %} {% endif %}
+
 </div>
 
 <script>
@@ -37,6 +53,7 @@
         $('#surnameblank').hide()
         $('#emailblank').hide()
         $('#phoneblank').hide()
+        $('#roleblank').hide()
         $('#passwordblank').hide()
         $('#passworddontmatch').hide()
     })
@@ -46,12 +63,13 @@
         let surname = $('#surname').val()
         let email = $('#email').val()
         let phone = $('#phone').val()
+        let role = $("#role").val()
         let password = $('#password').val()
         let password2 = $('#password2').val()
-        return form_is_valid(name, surname, phone, email, password, password2)
+        return form_is_valid(name, surname, phone, email, role, password, password2)
     })
 
-    form_is_valid = (name, surname, phone, email, password, password2) => {
+    form_is_valid = (name, surname, phone, email, role, password, password2) => {
         let res = true
         if (name === '') {
             $("#nameblank").show()
@@ -70,6 +88,12 @@
             res = false
         } else {
             $('#emailblank').hide()
+        }
+        if (role === '') {
+            $("#roleblank").show()
+            res = false
+        } else {
+            $('#roleblank').hide()
         }
         if (phone === '') {
             $("#phoneblank").show()
