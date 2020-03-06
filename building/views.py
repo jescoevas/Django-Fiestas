@@ -1,3 +1,8 @@
 from django.shortcuts import render
+from building.models import Building
 
-# Create your views here.
+def buildings(request):
+    template = 'buildings.html'
+    buildings = Building.objects.all()
+    context = {'buildings':buildings}
+    return render(request, template, context)
