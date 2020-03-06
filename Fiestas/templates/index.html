@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fiestas</title>
+
+    {% load bootstrap4 %} {% bootstrap_css %} {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+
 </head>
 
 <body>
@@ -31,6 +35,8 @@
             {% endfor %}
         </tbody>
     </table>
+    <button class="btn btn-outline-primary">Button</button>
+    <a href="test">Ir a test</a> {% bootstrap_javascript jquery='full' %}
 </body>
 
 </html>

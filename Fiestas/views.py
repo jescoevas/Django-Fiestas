@@ -6,3 +6,7 @@ def index(request):
     buildings = Building.objects.all()
     context = {'buildings':buildings}
     return render(request, template, context)
+
+def test(request):
+    template = 'test.html'
+    return render(request, template, {})

@@ -3,7 +3,7 @@ from roles.models import Owner
 
 # Create your models here.
 
-decisions = (('P','PENDING'),('A','ACCEPTED'),('R','REJECTED'))
+decisions = (('PENDING','P'),('ACCEPTED','A'),('REJECTED','R'))
 
 class Building(models.Model):
     address = models.CharField(max_length=20, blank=False)

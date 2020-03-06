@@ -4,7 +4,7 @@ from roles.models import Customer
 
 # Create your models here.
 
-decisions = (('P','PENDING'),('A','ACCEPTED'),('R','REJECTED'))
+decisions = (('PENDING','P'),('ACCEPTED','A'),('REJECTED','R'))
 
 class Request(models.Model):
     message = models.CharField(max_length=100, blank=False)
