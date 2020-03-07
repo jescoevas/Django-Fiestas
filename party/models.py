@@ -28,3 +28,21 @@ class Party(models.Model):
 
     def __str__(self):
         return f'{self.request.building.address} - {self.price} - ({self.startDate} - {self.endDate})'
+
+def get_accepted_parties():
+    requests = Request.objects.filter(decision='ACCEPTED')
+    all_parties = Party.objects.all()
+    res = []
+    for p in all_parties:
+        if p.request in requests:
+            res.append(p)
+    return res
+
+def get_accepted_parties_by_name(name):
+    requests = Request.objects.filter(decision='ACCEPTED')
+    all_parties = Party.objects.filter(name__icontains = name)
+    res = []
+    for p in all_parties:
+        if p.request in requests:
+            res.append(p)
+    return res

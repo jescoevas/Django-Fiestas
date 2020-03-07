@@ -1,19 +1,12 @@
 from django.shortcuts import render
-from building.models import Building
-from party.models import Party, Request
-from roles.models import Owner, Customer, Administrator
-from roles.views import setUser
+from building.models import get_accepted_buildings
+from party.models import get_accepted_parties
+from roles.models import setUser
 
 def index(request):
     template = 'index.html'
-    buildings = Building.objects.filter(decision='ACCEPTED')
-    requests = Request.objects.filter(decision='ACCEPTED')
-    all_parties = Party.objects.all()
-    parties = []
-    for p in all_parties:
-        if p.request in requests:
-            parties.append(p)
+    buildings = get_accepted_buildings()
+    parties = get_accepted_parties()
     context = {'buildings':buildings, 'parties':parties, 'nav':'index'}
     setUser(request, context)
-    
     return render(request, template, context)

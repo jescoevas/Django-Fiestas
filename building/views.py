@@ -1,18 +1,16 @@
 from django.shortcuts import render
-from .models import Building
+from .models import Building, get_accepted_buildings_by_address
+from roles.models import setUser
 
 def search_buildings(request):
     template = 'search_buildings.html'
     context = {}
-    try:
-        context['userId'] = request.COOKIES['id']
-    except Exception:
-        print(Exception)
+    setUser(request, context)
 
     if request.method == 'GET':
         return render(request,template,context)
     
     search = request.POST.get('search')
-    buildings = Building.objects.filter(address__icontains = search ).filter(decision = 'ACCEPTED')
+    buildings = get_accepted_buildings_by_address(search)
     context['buildings'] = buildings
     return render(request, template, context)

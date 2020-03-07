@@ -15,3 +15,12 @@ class Building(models.Model):
 
     def __str__(self):
         return f'{self.address} - {self.capacity}'
+
+def get_accepted_buildings():
+    return Building.objects.filter(decision='ACCEPTED')
+
+def get_all_buildings():
+    return Building.objects.all()
+
+def get_accepted_buildings_by_address(address):
+    return Building.objects.filter(address__icontains = address ).filter(decision = 'ACCEPTED')
