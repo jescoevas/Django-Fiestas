@@ -43,6 +43,12 @@ INSTALLED_APPS = [
     'party',
 ]
 
+MODULES = [
+    'roles',
+    'building',
+    'party',
+]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
