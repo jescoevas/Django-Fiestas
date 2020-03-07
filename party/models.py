@@ -46,3 +46,6 @@ def get_accepted_parties_by_name(name):
         if p.request in requests:
             res.append(p)
     return res
+
+def get_party_by_id(id):
+    return Party.objects.get(id=id)

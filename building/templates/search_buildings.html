@@ -19,7 +19,9 @@
             <h5 class="card-title">{{building.address}} (Capacity: {{building.capacity}})</h5>
             <p class="card-text">{{building.conditions}}</p>
             <p class="card-text"><small>{{building.owner.name}} {{building.owner.surname}}</small></p>
-            <button class="btn btn-outline-primary btn-block">See details</button>
+            <button class="btn btn-outline-primary btn-block" onclick="window.location.replace('/building/show/{{building.id}}')">
+                See details
+            </button>
         </div>
     </div>
 

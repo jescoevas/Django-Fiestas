@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import get_accepted_parties_by_name
+from .models import get_accepted_parties_by_name, get_party_by_id
 from roles.models import setUser
 
 
@@ -16,4 +16,10 @@ def search_parties(request):
     context['parties'] = parties
     return render(request, template, context)
 
+def show_party(request, id):
+    template = 'show_party.html'
+    party = get_party_by_id(id)
+    context = {'party':party}
+    setUser(request, context)
+    return render(request, template, context)
 

@@ -24,3 +24,6 @@ def get_all_buildings():
 
 def get_accepted_buildings_by_address(address):
     return Building.objects.filter(address__icontains = address ).filter(decision = 'ACCEPTED')
+
+def get_building_by_id(id):
+    return Building.objects.get(id=id)
