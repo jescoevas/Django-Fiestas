@@ -1,5 +1,5 @@
 from django.db import models
-from roles.models import Owner
+from roles.models import Owner, get_owner_by_id
 
 # Create your models here.
 
@@ -27,3 +27,7 @@ def get_accepted_buildings_by_address(address):
 
 def get_building_by_id(id):
     return Building.objects.get(id=id)
+
+def get_buildings_by_owner_id(id):
+    owner = get_owner_by_id(id)
+    return Building.objects.filter(owner = owner)

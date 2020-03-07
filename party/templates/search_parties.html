@@ -3,7 +3,7 @@
     <div class="col-md-12">
         <form method='POST'>
             {% csrf_token %}
-            <input class="form-control search" autocomplete="off" type='text' name='search' id='search' placeholder='Search for a building'>
+            <input class="form-control search" autocomplete="off" type='text' name='search' id='search' placeholder='Search for a party'>
         </form>
     </div>
 </div>
@@ -22,6 +22,7 @@
             <p class="card-text">{{party.startDate}} / {{party.endDate}}</p>
             <p class="card-text"><small>{{party.request.customer.name}} {{party.request.customer.surname}}</small></p>
             <button class="btn btn-outline-primary btn-block" onclick="window.location.replace('/party/show/{{party.id}}')">
+                <i class="fa fa-eye"></i>
                 See details
             </button>
         </div>

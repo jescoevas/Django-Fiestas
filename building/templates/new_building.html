@@ -1,0 +1,78 @@
+{% extends 'base.html' %} {% block content %}
+<div class='log-form-container animated fadeIn fast'>
+    <form method="POST" id='form'>
+        {% csrf_token %}
+        <h2 align='center' class="mb-3">New building</h2>
+        <div class="form-group">
+            <small id='addressblank' style="color: #AC2840">Address must not be blank</small>
+            <input type='text' name='address' id='address' autocomplete='off' placeholder='Address' class='form-control search' />
+        </div>
+        <div class="form-group">
+            <small id='capacitynull' style="color: #AC2840">Capacity must not be null</small>
+            <input type='number' name='capacity' id='capacity' autocomplete='off' placeholder='Capacity' class='form-control search' />
+        </div>
+        <div class="form-group">
+            <small id='conditionsblank' style="color: #AC2840">Conditions must not be blank</small>
+            <input type='text' name='conditions' id='conditions' autocomplete='off' placeholder='Conditions' class='form-control search' />
+        </div>
+        <div class="form-group">
+            <small id='pictureblank' style="color: #AC2840">Picture must not be blank</small>
+            <input type='text' name='picture' id='picture' autocomplete='off' placeholder='Picture' class='form-control search' />
+        </div>
+        <input type="submit" class='btn btn-outline-success w-50 log-form-button' value='Store' />
+    </form>
+
+    {% if messages %} {% for message in messages %}
+    <div class="alert alert-danger" role="alert">
+        <div class="text-center">{{message}}</div>
+    </div>
+    {% endfor %} {% endif %}
+
+</div>
+
+<script>
+    $(document).ready(() => {
+        $('#addressblank').hide()
+        $('#capacitynull').hide()
+        $('#conditionsblank').hide()
+        $('#pictureblank').hide()
+    })
+
+    $('#form').submit(() => {
+        let address = $('#address').val()
+        let capacity = $('#capacity').val()
+        let conditions = $('#conditions').val()
+        let picture = $('#picture').val()
+        return form_is_valid(address, capacity, conditions, picture)
+    })
+
+    form_is_valid = (address, capacity, conditions, picture) => {
+        let res = true
+        if (address === '') {
+            $("#addressblank").show()
+            res = false
+        } else {
+            $('#addressblank').hide()
+        }
+        if (capacity === '') {
+            $("#capacitynull").show()
+            res = false
+        } else {
+            $('#capacitynull').hide()
+        }
+        if (conditions === '') {
+            $("#conditionsblank").show()
+            res = false
+        } else {
+            $('#conditionsblank').hide()
+        }
+        if (picture === '') {
+            $("#pictureblank").show()
+            res = false
+        } else {
+            $('#pictureblank').hide()
+        }
+        return res
+    }
+</script>
+{% endblock content %}

@@ -9,7 +9,7 @@
     {% load bootstrap4 %} {% bootstrap_css %} {% bootstrap_javascript jquery='full' %} {% load static %}
     <link rel="stylesheet" href="{% static 'styles.css' %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+    <script src="https://use.fontawesome.com/5b9c1b87d1.js"></script>
 </head>
 
 <body class="container">
@@ -26,26 +26,43 @@
                 </li>
                 <li class="nav-item dropdown">
                     <span class="nav-link dropdown-toggle" style="cursor: pointer;" data-toggle="dropdown">
-                    Search
+                        Search
                     </span>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="/building/search">Search buildings</a>
                         <a class="dropdown-item" href="/party/search">Search parties</a>
                     </div>
                 </li>
-                </li>
 
                 {% if isCustomer %}
-                <li class="nav-item">
-                    <span class="nav-link" style="cursor: pointer;">Customer</span>
+                <li class="nav-item dropdown">
+                    <span class="nav-link dropdown-toggle" style="cursor: pointer;" data-toggle="dropdown">
+                        Customer
+                    </span>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">My parties</a>
+                        <a class="dropdown-item" href="#">Attendee requests</a>
+                    </div>
                 </li>
                 {% endif %} {% if isOwner %}
-                <li class="nav-item">
-                    <span class="nav-link" style="cursor: pointer;">Owner</span>
+                <li class="nav-item dropdown">
+                    <span class="nav-link dropdown-toggle" style="cursor: pointer;" data-toggle="dropdown">
+                        Owner
+                    </span>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/building/owner/{{userId}}/buildings">My buildings</a>
+                        <a class="dropdown-item" href="#">Party requests</a>
+                    </div>
                 </li>
                 {% endif %} {% if isAdmin %}
-                <li class="nav-item">
-                    <span class="nav-link" style="cursor: pointer;">Administrator</span>
+                <li class="nav-item dropdown">
+                    <span class="nav-link dropdown-toggle" style="cursor: pointer;" data-toggle="dropdown">
+                        Administrator
+                    </span>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Building requests</a>
+                        <a class="dropdown-item" href="#">Dashboard</a>
+                    </div>
                 </li>
                 {% endif %}
 
