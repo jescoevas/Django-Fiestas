@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import Owner, Customer
+from .models import Owner, Customer, Administrator
 
 # Create your views here.
 
@@ -52,6 +52,7 @@ def login(request):
         if owner.password == password:
             response = redirect('/index')
             response.set_cookie('id', owner.id)
+            response.set_cookie('isOwner',True)
             return response
         else:
             context['password_is_not_correct'] = 'Password is not correct'
@@ -62,15 +63,33 @@ def login(request):
             if customer.password == password:
                 response = redirect('/index')
                 response.set_cookie('id', customer.id)
+                response.set_cookie('isCustomer',True)
                 return response
             else:
                 context['password_is_not_correct'] = 'Password is not correct'
                 return render(request,template,context)
         except:
-            context['user_does_not_exist'] = 'User does not exist'
-            return render(request,template,context)
+            try:
+                admin = Administrator.objects.get(email=email)
+                if admin.password == password:
+                    response = redirect('/index')
+                    response.set_cookie('id', admin.id)
+                    response.set_cookie('isAdmin',True)
+                    return response
+                else:
+                    context['password_is_not_correct'] = 'Password is not correct'
+                    return render(request,template,context)
+            except:
+                context['user_does_not_exist'] = 'User does not exist'
+                return render(request,template,context)
 
 def logout(request):
     response = redirect('/index')
     response.delete_cookie('id')
+    if 'isOwner' in request.COOKIES.keys():
+        response.delete_cookie('isOwner')
+    elif 'isCustomer' in request.COOKIES.keys():
+        response.delete_cookie('isCustomer')
+    else:
+        response.delete_cookie('isAdmin')
     return response

@@ -13,25 +13,13 @@ def index(request):
         if p.request in requests:
             parties.append(p)
     context = {'buildings':buildings, 'parties':parties, 'nav':'index'}
-    try:
-        userId = request.COOKIES['id']
-        context['userId'] = userId
-        try:
-            owner = Owner.objects.get(id = userId)
-            print(owner)
+    if 'id' in request.COOKIES.keys():
+        context['userId'] = request.COOKIES['id']
+        if 'isOwner' in request.COOKIES.keys():
             context['isOwner'] = True
-        except Exception:
-            try:
-                customer = Customer.objects.get(id = userId)
-                print(customer)
-                context['isCustomer'] = True
-            except Exception:
-                try:
-                    admin = Administrator.objects.get(id = userId)
-                    print(admin)
-                    context['isAdmin'] = True
-                except Exception:
-                    print(Exception)
-    except Exception:
-        print(Exception)
+        elif 'isCustomer' in request.COOKIES.keys():
+            context['isCustomer'] = True
+        else:
+            context['isAdmin'] = True
+    
     return render(request, template, context)
