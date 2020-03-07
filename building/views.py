@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Building, get_accepted_buildings_by_address, get_building_by_id, get_buildings_by_owner_id
+from .models import Building, get_accepted_buildings_by_address, get_building_by_id, get_buildings_by_owner_id, get_pending_buildings
 from roles.models import set_user, get_user, is_admin, is_owner
 from django.contrib import messages
 
@@ -23,6 +23,8 @@ def show_building(request, id):
         template = 'show_building.html'
         context = {'building':building}
         set_user(request, context)
+        if is_admin(request) and building.decision == 'PENDING':
+            context['choose'] = True
         return render(request, template, context)
     else:
         return redirect('index')
@@ -53,5 +55,27 @@ def new_building(request):
         building.save()
         return redirect(f'/building/owner/{owner.id}/buildings')
 
+    else:
+        return redirect('index')
+
+def admin_buildings(request):
+    if is_admin(request):
+        template = 'admin_buildings.html'
+        buildings = get_pending_buildings()
+        context = {'buildings':buildings}
+        set_user(request, context)
+        return render(request, template, context)
+    else:
+        return redirect('index')
+
+def admin_choice(request, id, choice):
+    if is_admin(request):
+        building = get_building_by_id(id)
+        if choice == 'accept':
+            building.decision = 'ACCEPTED'
+        else:
+            building.decision = 'REJECTED'
+        building.save()
+        return redirect('index')
     else:
         return redirect('index')

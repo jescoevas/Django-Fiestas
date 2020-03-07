@@ -10,7 +10,7 @@ class Administrator(models.Model):
     phone = models.CharField(max_length=14)
 
     def __str__(self):
-        return self.name
+        return f'{self.name} {self.surname}'
 
 
 class Owner(models.Model):
@@ -21,7 +21,7 @@ class Owner(models.Model):
     phone = models.CharField(max_length=14)
 
     def __str__(self):
-        return self.name
+        return f'{self.name} {self.surname}'
 
 class Customer(models.Model):
     name = models.CharField(max_length=20, blank=False)
@@ -31,7 +31,7 @@ class Customer(models.Model):
     phone = models.CharField(max_length=14)
 
     def __str__(self):
-        return self.name
+        return f'{self.name} {self.surname}'
 
 
 def set_user(request, context):

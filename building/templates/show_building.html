@@ -5,7 +5,18 @@
             <img src="{{building.picture}}" alt="{{building.address}}" class="img-fluid rounded-circle">
         </div>
         <div class="col-8">
-            <h2>{{building.address}}</h2>
+            <h2>
+                {{building.address}} {% if choose %}
+                <button class="btn btn-outline-primary" onclick="window.location.replace('/building/admin/{{building.id}}/accept')">
+                    <i class="fa fa-check"></i>
+                    Accept
+                </button>
+                <button class="btn btn-outline-primary" onclick="window.location.replace('/building/admin/{{building.id}}/reject')">
+                    <i class="fa fa-trash"></i>
+                    Reject
+                </button> {% endif %}
+
+            </h2>
             <p style="color: #AC2840;">{{building.owner.name}} {{building.owner.surname}}</p>
             <hr>
             <small style="color: #AC2840;">{{building.conditions}}</small>

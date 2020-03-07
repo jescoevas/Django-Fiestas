@@ -19,6 +19,12 @@ class Building(models.Model):
 def get_accepted_buildings():
     return Building.objects.filter(decision='ACCEPTED')
 
+def get_pending_buildings():
+    return Building.objects.filter(decision = 'PENDING')
+
+def get_rejected_buildings():
+    return Building.objects.filter(decision = 'REJECTED')
+
 def get_all_buildings():
     return Building.objects.all()
 
