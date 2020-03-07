@@ -17,20 +17,18 @@ def signup(request):
     password = request.POST.get('password')
 
     if role == 'owner':
-        print('Dentro de owner')
         try:
             owner = Owner(name=name, surname=surname, email=email, phone=phone, password=password)
             owner.save()
-            return redirect('/login')
+            return redirect('/roles/login')
         except:
             messages.error(request,'Sign up failed')
             return render(request,template)
     else:
-        print('Dentro de customer')
         try:
             customer = Customer(name=name, surname=surname, email=email, phone=phone, password=password)
             customer.save()
-            return redirect('/login')
+            return redirect('/roles/login')
         except:
             messages.error(request,'Sign up failed')
             return render(request,template)
@@ -93,3 +91,40 @@ def logout(request):
     else:
         response.delete_cookie('isAdmin')
     return response
+
+def isAuthenticated(request):
+    if 'id' in request.COOKIES.keys():
+        return True
+    else:
+        return False
+
+def isOwner(request):
+    if 'isOwner' in request.COOKIES.keys():
+        return True
+    else:
+        return False
+
+def isCustomer(request):
+    if 'isCustomer' in request.COOKIES.keys():
+        return True
+    else:
+        return False
+
+def isAdmin(request):
+    if 'isAdmin' in request.COOKIES.keys():
+        return True
+    else:
+        return False
+
+def setUser(request, context):
+    if isAuthenticated(request):
+        context['userId'] = request.COOKIES['id']
+        if isOwner(request):
+            context['isOwner'] = True
+        elif isCustomer(request):
+            context['isCustomer'] = True
+        else:
+            context['isAdmin'] = True
+    
+
+        
