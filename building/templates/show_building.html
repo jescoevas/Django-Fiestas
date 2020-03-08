@@ -7,14 +7,32 @@
         <div class="col-8">
             <h2>
                 {{building.address}} {% if choose %}
-                <button class="btn btn-outline-primary" onclick="window.location.replace('/building/admin/{{building.id}}/accept')">
+                <button class="btn btn-outline-primary" onclick='choose("{{building.id}}", "accept")'>
                     <i class="fa fa-check"></i>
                     Accept
                 </button>
-                <button class="btn btn-outline-primary" onclick="window.location.replace('/building/admin/{{building.id}}/reject')">
+                <button class="btn btn-outline-primary" onclick='choose("{{building.id}}", "reject")'>
                     <i class="fa fa-trash"></i>
                     Reject
-                </button> {% endif %} {% if isCustomer %}
+                </button>
+
+                <script>
+                    function choose(id, choice) {
+                        if (choice === 'accept') {
+                            opt = confirm('Are you sure you want to accept this building?')
+                            if (opt) {
+                                window.location.replace(`/building/admin/${id}/accept`)
+                            }
+                        } else {
+                            opt = confirm('Are you sure you want to reject this building?')
+                            if (opt) {
+                                window.location.replace(`/building/admin/${id}/reject`)
+                            }
+                        }
+                    }
+                </script>
+
+                {% endif %} {% if isCustomer %}
                 <button class="btn btn-outline-primary" onclick="window.location.replace('/party/new/{{building.id}}')">
                         <i class="fa fa-plus"></i>
                         Request for party

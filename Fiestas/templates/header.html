@@ -41,7 +41,6 @@
                     </span>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="/party/customer/{{userId}}/parties">My parties</a>
-                        <a class="dropdown-item" href="#">Attendee requests</a>
                     </div>
                 </li>
                 {% endif %} {% if isOwner %}
@@ -51,6 +50,7 @@
                     </span>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="/building/owner/{{userId}}/buildings">My buildings</a>
+                        <a class="dropdown-item" href="/party/owner/{{userId}}/requests">Party requests</a>
                     </div>
                 </li>
                 {% endif %} {% if isAdmin %}

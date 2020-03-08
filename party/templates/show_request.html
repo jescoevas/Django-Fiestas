@@ -1,0 +1,59 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="animated fadeIn faster">
+    <div class="row mt-5">
+        <div class="col">
+            <h2>
+                Request {% if choose %}
+                <button class="btn btn-outline-primary" onclick='choose("{{request.id}}", "accept")'>
+                    <i class="fa fa-check"></i>
+                    Accept
+                </button>
+                <button class="btn btn-outline-primary" onclick='choose("{{request.id}}", "reject")'>
+                    <i class="fa fa-trash"></i>
+                    Reject
+                </button>
+
+                <script>
+                    function choose(id, choice) {
+                        if (choice === 'accept') {
+                            opt = confirm('Are you sure you want to accept this party?')
+                            if (opt) {
+                                window.location.replace(`/party/request/${id}/accept`)
+                            }
+                        } else {
+                            opt = confirm('Are you sure you want to reject this party?')
+                            if (opt) {
+                                window.location.replace(`/party/request/${id}/reject`)
+                            }
+                        }
+                    }
+                </script>
+
+                {% endif %}
+            </h2>
+            <hr>
+            <p>{{request.message}}</p>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-4">
+            <img src="{{party.picture}}" alt="{{party.name}}" class="img-fluid rounded-circle">
+        </div>
+        <div class="col-8">
+            <h2>{{party.name}}</h2>
+            <p style="color: #AC2840;">{{party.request.building.address}}</p>
+            <hr>
+            <small style="color: #AC2840;">
+                Description: {{party.description}}<br>
+                Price: {{party.price}}<br>
+                Date: {{party.startDate}} / {{party.endDate}}<br>
+                Number of attendees: {{party.numberOfAttendees}}
+            </small>
+        </div>
+    </div>
+    <hr>
+</div>
+
+{% endblock content %}

@@ -1,6 +1,6 @@
 from django.db import models
-from building.models import Building
-from roles.models import Customer, get_customer_by_id
+from building.models import Building, get_buildings_by_owner_id
+from roles.models import Customer, get_customer_by_id, get_owner_by_id
 
 # Create your models here.
 
@@ -38,6 +38,15 @@ def get_accepted_parties():
             res.append(p)
     return res
 
+def get_pending_requests_by_owner_id(id):
+    buildings = get_buildings_by_owner_id(id)
+    pending_requests = Request.objects.filter(decision = 'PENDING')
+    res = []
+    for r in pending_requests:
+        if r.building in buildings:
+            res.append(r)
+    return res
+
 def get_accepted_parties_by_name(name):
     requests = Request.objects.filter(decision='ACCEPTED')
     all_parties = Party.objects.filter(name__icontains = name)
@@ -54,6 +63,9 @@ def get_requests_by_customer_id(id):
     customer = Customer.objects.get(id=id)
     return Request.objects.filter(customer = customer)
 
+def get_request_by_id(id):
+    return Request.objects.get(id=id)
+
 def get_parties_by_customer_id(id):
     requests = get_requests_by_customer_id(id)
     all_parties = Party.objects.all()
@@ -62,3 +74,6 @@ def get_parties_by_customer_id(id):
         if p.request in requests:
             res.append(p)
     return res
+def get_party_by_request_id(id):
+    request = get_request_by_id(id)
+    return Party.objects.get(request = request)
