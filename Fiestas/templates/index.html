@@ -11,6 +11,7 @@
         <img src="{{ building.picture }}" class="card-img-top" alt="{{ building.address }}">
         <div class="card-body">
             <h5 class="card-title">{{building.address}} (Capacity: {{building.capacity}})</h5>
+            <hr>
             <p class="card-text">{{building.conditions}}</p>
             <p class="card-text"><small>{{building.owner.name}} {{building.owner.surname}}</small></p>
             <button class="btn btn-outline-primary btn-block" onclick="window.location.replace('/building/show/{{building.id}}')">
@@ -37,10 +38,11 @@
         <img src="{{ party.picture }}" class="card-img-top" alt="{{ party.request.building.address }}">
         <div class="card-body">
             <h5 class="card-title">{{party.name}} (Price: {{party.price}})</h5>
+            <hr>
             <p class="card-text">{{party.request.building.address}}</p>
             <p class="card-text">{{party.description}}</p>
             <p class="card-text">{{party.startDate}} / {{party.endDate}}</p>
-            <p class="card-text"><small>{{party.request.customer.name}} {{party.request.customer.surname}}</small></p>
+            <p class="card-text"><small>{{party.request.customer}}</small></p>
             <button class="btn btn-outline-primary btn-block" onclick="window.location.replace('/party/show/{{party.id}}')">
                 <i class="fa fa-eye"></i>
                 See details

@@ -18,8 +18,9 @@
             <img src="{{ building.picture }}" class="card-img-top" alt="{{ building.address }}">
             <div class="card-body">
                 <h5 class="card-title">{{building.address}} (Capacity: {{building.capacity}})</h5>
+                <hr>
                 <p class="card-text">{{building.conditions}}</p>
-                <p class="card-text"><small>{{building.owner.name}} {{building.owner.surname}}</small></p>
+                <p class="card-text"><small>{{building.owner}}</small></p>
                 <p class="card-text">
 
                     {% if building.decision == 'ACCEPTED' %}

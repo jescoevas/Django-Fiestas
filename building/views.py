@@ -30,11 +30,14 @@ def show_building(request, id):
         return redirect('index')
 
 def owner_buildings(request, userId):
-    template = 'owner_buildings.html'
-    buildings = get_buildings_by_owner_id(userId)
-    context = {'buildings':buildings}
-    set_user(request, context)
-    return render(request, template, context)
+    if is_owner(request):
+        template = 'owner_buildings.html'
+        buildings = get_buildings_by_owner_id(userId)
+        context = {'buildings':buildings}
+        set_user(request, context)
+        return render(request, template, context)
+    else:
+        return redirect('index')
 
 def new_building(request):
     if is_owner(request):

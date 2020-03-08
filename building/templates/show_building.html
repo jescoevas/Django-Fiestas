@@ -14,10 +14,14 @@
                 <button class="btn btn-outline-primary" onclick="window.location.replace('/building/admin/{{building.id}}/reject')">
                     <i class="fa fa-trash"></i>
                     Reject
-                </button> {% endif %}
+                </button> {% endif %} {% if isCustomer %}
+                <button class="btn btn-outline-primary" onclick="window.location.replace('/party/new/{{building.id}}')">
+                        <i class="fa fa-plus"></i>
+                        Request for party
+                    </button> {% endif %}
 
             </h2>
-            <p style="color: #AC2840;">{{building.owner.name}} {{building.owner.surname}}</p>
+            <p style="color: #AC2840;">{{building.owner}}</p>
             <hr>
             <small style="color: #AC2840;">{{building.conditions}}</small>
         </div>

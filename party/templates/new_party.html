@@ -1,0 +1,135 @@
+{% extends 'base.html' %} {% block content %}
+<div class='log-form-container animated fadeIn fast'>
+    <form method="POST" id='form'>
+        {% csrf_token %}
+        <h2 align='center' class="mb-3">New party</h2>
+        <div class="form-group">
+            <input type='text' name='building' autocomplete='off' class='form-control search' value="{{building}}" disabled/>
+        </div>
+        <div class="form-group">
+            <small id='messageblank' style="color: #AC2840">Request message must not be blank</small>
+            <input type='text' name='message' id='message' autocomplete='off' placeholder='Request message' class='form-control search' />
+        </div>
+        <div class="form-group">
+            <small id='nameblank' style="color: #AC2840">Name must not be blank</small>
+            <input type='text' name='name' id='name' autocomplete='off' placeholder='Name' class='form-control search' />
+        </div>
+        <div class="form-group">
+            <small id='descriptionblank' style="color: #AC2840">Description must not be blank</small>
+            <input type='text' name='description' id='description' autocomplete='off' placeholder='Description' class='form-control search' />
+        </div>
+        <div class="form-group">
+            <small id='attendeesnull' style="color: #AC2840">Number of attendees must not be null</small>
+            <input type='number' name='attendees' id='attendees' autocomplete='off' placeholder='Number of attendees' class='form-control search' />
+        </div>
+        <div class="form-group">
+            <small id='startdateblank' style="color: #AC2840">Dates must not be blank</small>
+            <small id='startdatewrong' style="color: #AC2840">Start date must be after today</small>
+            <input type='datetime-local' name='startdate' id='startdate' autocomplete='off' placeholder='Start date' class='form-control search' />
+        </div>
+        <div class="form-group">
+            <small id='enddatewrong' style="color: #AC2840">End date must be after start date</small>
+            <input type='datetime-local' name='enddate' id='enddate' autocomplete='off' placeholder='End date' class='form-control search' />
+        </div>
+        <div class="form-group">
+            <small id='pictureblank' style="color: #AC2840">Picture must not be blank</small>
+            <input type='text' name='picture' id='picture' autocomplete='off' placeholder='Picture' class='form-control search' />
+        </div>
+        <div class="form-group">
+            <small id='priceblank' style="color: #AC2840">Price must not be blank</small>
+            <input type='number' name='price' id='price' autocomplete='off' placeholder='Price' class='form-control search' />
+        </div>
+        <input type="submit" class='btn btn-outline-success w-50 log-form-button' value='Request' />
+    </form>
+
+    {% if messages %} {% for message in messages %}
+    <div class="alert alert-danger" role="alert">
+        <div class="text-center">{{message}}</div>
+    </div>
+    {% endfor %} {% endif %}
+
+</div>
+
+<script>
+    $(document).ready(() => {
+        $('#messageblank').hide()
+        $('#nameblank').hide()
+        $('#descriptionblank').hide()
+        $('#attendeesnull').hide()
+        $('#startdateblank').hide()
+        $('#startdatewrong').hide()
+        $('#enddatewrong').hide()
+        $('#pictureblank').hide()
+        $('#priceblank').hide()
+    })
+
+    $('#form').submit(() => {
+        let message = $('#message').val()
+        let name = $('#name').val()
+        let description = $('#description').val()
+        let attendees = $('#attendees').val()
+        let startdate = $('#startdate').val()
+        let enddate = $('#enddate').val()
+        let picture = $('#picture').val()
+        let price = $('#price').val()
+        return form_is_valid(message, name, description, attendees, startdate, enddate, picture, price)
+    })
+
+    form_is_valid = (message, name, description, attendees, startdate, enddate, picture, price) => {
+        let res = true
+        if (message === '') {
+            $("#messageblank").show()
+            res = false
+        } else {
+            $('#messageblank').hide()
+        }
+        if (name === '') {
+            $("#nameblank").show()
+            res = false
+        } else {
+            $('#nameblank').hide()
+        }
+        if (description === '') {
+            $("#descriptionblank").show()
+            res = false
+        } else {
+            $('#descriptionblank').hide()
+        }
+        if (attendees === '') {
+            $("#attendeesnull").show()
+            res = false
+        } else {
+            $('#attendeesnull').hide()
+        }
+        if (startdate === '') {
+            $('#startdateblank').show()
+        } else {
+            $('#startdateblank').hide()
+        }
+        if (new Date(startdate) < new Date()) {
+            $('#startdatewrong').show()
+        } else {
+            $('#startdatewrong').hide()
+        }
+        if (enddate < startdate) {
+            $("#enddatewrong").show()
+            res = false
+        } else {
+            $('#enddatewrong').hide()
+        }
+        if (picture === '') {
+            $("#pictureblank").show()
+            res = false
+        } else {
+            $('#pictureblank').hide()
+        }
+        if (price === '') {
+            $("#priceblank").show()
+            res = false
+        } else {
+            $('#priceblank').hide()
+        }
+        return res
+    }
+</script>
+{% endblock content %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %} {% block content %}
+<div class="animated mt-3 fadeIn faster">
+    <h2>My parties</h2>
+    <hr>
+
+    <div class="card-columns">
+
+
+        {% for party in parties %}
+
+        <div class="card mb-3">
+            <img src="{{ party.picture }}" class="card-img-top" alt="{{ party.request.building.address }}">
+            <div class="card-body">
+                <h5 class="card-title">{{party.name}} (Price: {{party.price}})</h5>
+                <hr>
+                <p class="card-text">{{party.request.building.address}}</p>
+                <p class="card-text">{{party.description}}</p>
+                <p class="card-text">{{party.startDate}} / {{party.endDate}}</p>
+                <p class="card-text">
+                    {% if party.request.decision == 'ACCEPTED' %}
+                    <span class="badge badge-pill badge-success">{{party.request.decision}}</span> {% elif party.request.decision == 'PENDING' %}
+                    <span class="badge badge-pill badge-secondary">{{party.request.decision}}</span> {% else %}
+                    <span class="badge badge-pill badge-danger">{{party.request.decision}}</span> {% endif %}
+                </p>
+                <button class="btn btn-outline-primary btn-block" onclick="window.location.replace('/party/show/{{party.id}}')">
+                    <i class="fa fa-eye"></i>
+                    See details
+                </button>
+            </div>
+        </div>
+
+        {% endfor %}
+
+
+    </div>
+
+</div>
+{% endblock content %}

@@ -1,6 +1,6 @@
 from django.db import models
 from building.models import Building
-from roles.models import Customer
+from roles.models import Customer, get_customer_by_id
 
 # Create your models here.
 
@@ -49,3 +49,16 @@ def get_accepted_parties_by_name(name):
 
 def get_party_by_id(id):
     return Party.objects.get(id=id)
+
+def get_requests_by_customer_id(id):
+    customer = Customer.objects.get(id=id)
+    return Request.objects.filter(customer = customer)
+
+def get_parties_by_customer_id(id):
+    requests = get_requests_by_customer_id(id)
+    all_parties = Party.objects.all()
+    res = []
+    for p in all_parties:
+        if p.request in requests:
+            res.append(p)
+    return res
