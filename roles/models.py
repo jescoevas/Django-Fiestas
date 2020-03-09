@@ -29,6 +29,8 @@ class Customer(models.Model):
     email = models.EmailField(blank=False)
     password = models.CharField(max_length=20, default='')
     phone = models.CharField(max_length=14)
+    picture = models.URLField(default='')
+    description = models.CharField(max_length=250, default='')
 
     def __str__(self):
         return f'{self.name} {self.surname}'

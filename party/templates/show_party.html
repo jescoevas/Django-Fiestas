@@ -5,7 +5,23 @@
             <img src="{{party.picture}}" alt="{{party.name}}" class="img-fluid rounded-circle">
         </div>
         <div class="col-8">
-            <h2>{{party.name}}</h2>
+            <h2>
+                {{party.name}} {% if canJoin %}
+                <button class="btn btn-outline-primary" onclick="join('{{party.id}}')">
+                    <i class="fa fa-check"></i>
+                    Join
+                </button> {% endif %}
+
+                <script>
+                    function join(id) {
+                        opt = confirm('Are you sure you want to join this party?')
+                        if (opt) {
+                            window.location.replace(`/party/${id}/join`)
+                        }
+                    }
+                </script>
+
+            </h2>
             <p style="color: #AC2840;">{{party.request.building.address}}</p>
             <hr>
             <small style="color: #AC2840;">
@@ -17,5 +33,33 @@
         </div>
     </div>
     <hr>
+    <div class="row">
+        <div class="col">
+            <h2>Attendees</h2>
+            <hr>
+
+            <div class="card-columns">
+
+
+                {% for customer in attendees %}
+
+                <div class="card mb-3">
+                    <img src="{{ customer.picture }}" class="card-img-top" alt="{{ customer }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{customer}}</h5>
+                        <hr>
+                        <p class="card-text">{{customer.email}}</p>
+                        <p class="card-text">{{customer.phone}}</p>
+                        <p class="card-text">{{customer.description}}</p>
+                    </div>
+                </div>
+
+                {% endfor %}
+
+
+            </div>
+
+        </div>
+    </div>
 </div>
 {% endblock content %}

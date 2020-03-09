@@ -9,4 +9,5 @@ urlpatterns = [
     path('owner/<int:id>/requests', views.party_requests),
     path('request/show/<int:id>', views.show_request),
     path('request/<int:id>/<str:choice>', views.owner_choose),
+    path('<int:id>/join', views.join),
 ]

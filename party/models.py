@@ -27,7 +27,12 @@ class Party(models.Model):
     request = models.ForeignKey(Request, null=False, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.request.building.address} - {self.price} - ({self.startDate} - {self.endDate})'
+        return f'{self.name} - {self.request.building.address}'
+
+class AttendRequest(models.Model):
+    decision = models.CharField(max_length=10,default='PENDING', choices=decisions)
+    customer = models.ForeignKey(Customer, null=False, on_delete=models.CASCADE)
+    party = models.ForeignKey(Party, null=False, on_delete=models.CASCADE)
 
 def get_accepted_parties():
     requests = Request.objects.filter(decision='ACCEPTED')
@@ -74,6 +79,28 @@ def get_parties_by_customer_id(id):
         if p.request in requests:
             res.append(p)
     return res
+
 def get_party_by_request_id(id):
     request = get_request_by_id(id)
     return Party.objects.get(request = request)
+
+def get_attend_requests_by_party_id(id):
+    party = get_party_by_id(id)
+    return AttendRequest.objects.filter(party = party)
+
+def get_accepted_attendees_by_party_id(id):
+    attend_requests = get_attend_requests_by_party_id(id)
+    res = []
+    for ar in attend_requests:
+        if ar.decision == 'ACCEPTED':
+            res.append(ar.customer)
+    return res
+
+def has_made_an_attend_request(customer, party):
+    res = False
+    attend_requests = get_attend_requests_by_party_id(party.id)
+    for ar in attend_requests:
+        if ar.customer == customer:
+            res = True
+            break
+    return res
