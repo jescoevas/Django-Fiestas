@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Party, AttendRequest, Request,get_party_by_request_id, has_made_an_attend_request ,get_accepted_attendees_by_party_id ,get_accepted_parties_by_name, get_party_by_id, get_parties_by_customer_id, get_pending_requests_by_owner_id, get_request_by_id
+from .models import Party, AttendRequest, Request, get_attend_request_by_id, get_pending_attend_requests_by_customer_id ,get_party_by_request_id, get_pending_attendees_by_customer_id, has_made_an_attend_request ,get_accepted_attendees_by_party_id ,get_accepted_parties_by_name, get_party_by_id, get_parties_by_customer_id, get_pending_requests_by_owner_id, get_request_by_id
 from roles.models import set_user, is_customer, get_user, is_owner, is_admin
 from building.models import get_building_by_id, get_buildings_by_owner_id
 
@@ -125,5 +125,29 @@ def join(request, id):
         attend_request = AttendRequest(customer = customer, party = party)
         attend_request.save()
         return redirect(f'/party/show/{id}')
+    else:
+        return redirect('index')
+
+def attend_requests(request, id):
+    if is_customer(request):
+        template = 'attend_requests.html'
+        attend_requests = get_pending_attend_requests_by_customer_id(id)
+        context = {'attend_requests':attend_requests}
+        set_user(request, context)
+        return render(request, template, context)
+    else:
+        return redirect('index')
+
+def attend_request_choose(request, id, choice):
+    if is_customer(request):
+        customer = get_user(request)
+        at = get_attend_request_by_id(id)
+        if at in get_pending_attend_requests_by_customer_id(customer.id):
+            if choice == 'accept':
+                at.decision = 'ACCEPTED'
+            else:
+                at.decision = 'REJECTED'
+            at.save()
+            return redirect(f'/party/show/{at.party.id}')
     else:
         return redirect('index')

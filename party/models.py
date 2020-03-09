@@ -84,9 +84,31 @@ def get_party_by_request_id(id):
     request = get_request_by_id(id)
     return Party.objects.get(request = request)
 
+def get_attend_request_by_id(id):
+    return AttendRequest.objects.get(id=id)
+
 def get_attend_requests_by_party_id(id):
     party = get_party_by_id(id)
     return AttendRequest.objects.filter(party = party)
+
+def get_pending_attendees_by_customer_id(id):
+    res = []
+    parties = get_parties_by_customer_id(id)
+    for p in parties:
+        ats = get_attend_requests_by_party_id(p.id)
+        for at in ats:
+            if at.decision == 'PENDING':
+                res.append(at.customer)
+    return res
+
+def get_pending_attend_requests_by_customer_id(id):
+    res = []
+    parties = get_parties_by_customer_id(id)
+    ats = AttendRequest.objects.filter(decision = 'PENDING')
+    for at in ats:
+        if at.party in parties:
+            res.append(at)
+    return res
 
 def get_accepted_attendees_by_party_id(id):
     attend_requests = get_attend_requests_by_party_id(id)

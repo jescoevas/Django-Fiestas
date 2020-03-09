@@ -1,0 +1,54 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="mt-3 animated fadeIn faster">
+    <h2>Attend requests</h2>
+    <hr>
+    <div class="card-columns">
+
+
+        {% for attend_request in attend_requests %}
+
+        <div class="card mb-3">
+            <img src="{{ attend_request.customer.picture }}" class="card-img-top" alt="{{ attend_request.customer }}">
+            <div class="card-body">
+                <h5 class="card-title">{{attend_request.customer}}</h5>
+                <hr>
+                <p class="card-text">Email: {{attend_request.customer.email}}</p>
+                <p class="card-text">Phone: {{attend_request.customer.phone}}</p>
+                <p class="card-text">Description: {{attend_request.customer.description}}</p>
+                <p class="card-text">Party: {{attend_request.party}}</p>
+                <button class="btn btn-outline-primary btn-block" onclick="choose('{{attend_request.id}}', 'accept')">
+                    <i class="fa fa-check"></i>
+                    Accept
+                </button>
+                <button class="btn btn-outline-primary btn-block" onclick="choose('{{attend_request.id}}', 'reject')">
+                    <i class="fa fa-trash"></i>
+                    Reject
+                </button>
+
+                <script>
+                    function choose(id, choice) {
+                        if (choice === 'accept') {
+                            opt = confirm('Are you sure you want to accept this customer?')
+                            if (opt) {
+                                window.location.replace(`/party/attendrequest/${id}/accept`)
+                            }
+                        } else {
+                            opt = confirm('Are you sure you want to reject this customer?')
+                            if (opt) {
+                                window.location.replace(`/party/attendrequest/${id}/reject`)
+                            }
+                        }
+                    }
+                </script>
+
+            </div>
+        </div>
+
+        {% endfor %}
+
+
+    </div>
+</div>
+
+{% endblock content %}
