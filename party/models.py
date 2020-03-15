@@ -126,3 +126,6 @@ def has_made_an_attend_request(customer, party):
             res = True
             break
     return res
+
+def number_of_attendees_so_far(party):
+    return AttendRequest.objects.filter(party = party, decision = 'ACCEPTED')

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Party, AttendRequest, Request, get_attend_request_by_id, get_pending_attend_requests_by_customer_id ,get_party_by_request_id, get_pending_attendees_by_customer_id, has_made_an_attend_request ,get_accepted_attendees_by_party_id ,get_accepted_parties_by_name, get_party_by_id, get_parties_by_customer_id, get_pending_requests_by_owner_id, get_request_by_id
+from .models import Party, AttendRequest, Request, number_of_attendees_so_far, get_attend_request_by_id, get_pending_attend_requests_by_customer_id ,get_party_by_request_id, get_pending_attendees_by_customer_id, has_made_an_attend_request ,get_accepted_attendees_by_party_id ,get_accepted_parties_by_name, get_party_by_id, get_parties_by_customer_id, get_pending_requests_by_owner_id, get_request_by_id
 from roles.models import set_user, is_customer, get_user, is_owner, is_admin
 from building.models import get_building_by_id, get_buildings_by_owner_id
 
@@ -26,7 +26,9 @@ def show_party(request, id):
     can_join = False
     if is_customer(request):
         customer = get_user(request)
-        if customer not in attendees and not has_made_an_attend_request(customer,party):
+        so_far = number_of_attendees_so_far(party)
+        available = len(so_far) < party.numberOfAttendees
+        if customer not in attendees and not has_made_an_attend_request(customer,party) and available:
             can_join = True
     context['canJoin'] = can_join
     return render(request, template, context)
