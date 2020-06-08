@@ -36,7 +36,8 @@
             <input type='text' name='picture' id='picture' autocomplete='off' placeholder='Picture' class='form-control search' />
         </div>
         <div class="form-group">
-            <small id='priceblank' style="color: #AC2840">Price must not be blank</small>
+            <small id='priceblank' style="color: #AC2840">Price must not be blank</small><br>
+            <small id='pricenegative' style="color: #AC2840">Price must not be less than zero</small>
             <input type='number' name='price' id='price' autocomplete='off' placeholder='Price' class='form-control search' />
         </div>
         <input type="submit" class='btn btn-outline-success w-50 log-form-button' value='Request' />
@@ -61,6 +62,7 @@
         $('#enddatewrong').hide()
         $('#pictureblank').hide()
         $('#priceblank').hide()
+        $('#pricenegative').hide()
     })
 
     $('#form').submit(() => {
@@ -128,6 +130,12 @@
             res = false
         } else {
             $('#priceblank').hide()
+            if (price <= '0') {
+                $("#pricenegative").show()
+                res = false
+            } else {
+                $('#pricenegative').hide()
+            }
         }
         return res
     }
