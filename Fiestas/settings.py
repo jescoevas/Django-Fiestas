@@ -41,12 +41,14 @@ INSTALLED_APPS = [
     'roles',
     'building',
     'party',
+    'dashboard',
 ]
 
 MODULES = [
     'roles',
     'building',
     'party',
+    'dashboard',
 ]
 
 MIDDLEWARE = [

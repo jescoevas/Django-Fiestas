@@ -1,0 +1,42 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="mt-3 animated fadeIn faster">
+    <h2>Buildings requests</h2>
+    <hr>
+    <table class="table">
+        <thead style="background-color: #AC2840;">
+            <tr>
+                <th></th>
+                <th>Buildings</th>
+                <th>Parties</th>
+                <th>Attend requests</th>
+            </tr>
+        </thead>
+        <tbody style="background-color: #343A40;">
+
+            <tr style="color: #AC2840; ">
+                <td style="background-color: #AC2840; color: #343A40;"><strong>Accepted</strong></td>
+                <td>{{accepted_buildings}} %</td>
+                <td>{{accepted_parties}} %</td>
+                <td>{{accepted_attend_requests}} %</td>
+            </tr>
+
+            <tr style="color: #AC2840; ">
+                <td style="background-color: #AC2840; color: #343A40;"><strong>Pending</strong></td>
+                <td>{{pending_buildings}} %</td>
+                <td>{{pending_parties}} %</td>
+                <td>{{pending_attend_requests}} %</td>
+            </tr>
+
+            <tr style="color: #AC2840; ">
+                <td style="background-color: #AC2840; color: #343A40;"><strong>Rejected</strong></td>
+                <td>{{rejected_buildings}} %</td>
+                <td>{{rejected_parties}} %</td>
+                <td>{{rejected_attend_requests}} %</td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+
+{% endblock content %}
